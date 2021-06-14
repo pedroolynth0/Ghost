@@ -17,6 +17,22 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+def evaluate(text):
+#Reconhecer entidade do texto 
+   entity = classify(text)           
+        
+   if entity == 'time\getTime':
+        speak(core.SystemInfom.get_time())
+
+   elif entity == 'time\getDate':
+        speak(core.SystemInfom.get_date())
+
+   elif entity == 'open\notepad':
+       speak('Abrindo o bloco de notas')
+       os.system('notepad.exe')
+   print(text)
+
+
 
 model = Model("model")
 rec = KaldiRecognizer(model,16000)
@@ -34,18 +50,9 @@ while True:
        
        if result is not None:
           text = result['text']
+          evaluate(text)
 
           
-          #Reconhecer entidade do texto 
-          entity = classify(text)           
-        
-          if entity == 'time\getTime':
-             speak(core.SystemInfom.get_time())
-
-          elif entity == 'time\getDate':
-              speak(core.SystemInfom.get_date())
-
-
-          print(text)
+       
 
 
